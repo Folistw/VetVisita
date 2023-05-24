@@ -1,5 +1,6 @@
 import plotly.graph_objects as go
 import pandas as pd
+import streamlit as st
 
 colnames=['Month', 'Visits'] 
 df = pd.read_csv("Data.csv", sep=',', names=colnames, header=None)
