@@ -49,3 +49,10 @@ else:
     )
 
     st.plotly_chart(fig)
+
+    st.download_button(
+        label="Download data as CSV",
+        data=csv,
+        file_name='Data.csv',
+        mime='text/csv',
+    )
