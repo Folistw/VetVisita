@@ -6,6 +6,7 @@ print(st.experimental_user.email)
 if st.experimental_user.email == "pedro.gomes.fccn@gmail.com":
     st.write("Tu es Nabo")
 else:
+    print(st.experimental_user.email)
     colnames=['Month', 'Visits', 'Unique_users'] 
     df = pd.read_csv("Data.csv", sep=',', names=colnames, header=None)
 
