@@ -2,7 +2,7 @@ import plotly.graph_objects as go
 import pandas as pd
 import streamlit as st
 
-if "gomes" in st.experimental_user.email:
+if "gomes" in str(st.experimental_user.email):
     st.write("Tu es Nabo")
 else:
     print(st.experimental_user.email)
