@@ -14,7 +14,18 @@ else:
     print(st.experimental_user.email)
     colnames=['Month', 'Visits', 'Unique_users'] 
     df = pd.read_csv("Data.csv", sep=',', names=colnames, header=None)
-
+    
+       
+    csv = convert_df(df)
+    
+    st.download_button(
+        label="Download data as CSV",
+        data=csv,
+        file_name='Data.csv',
+        mime='text/csv',
+    )
+    
+    
     # Step 3: Prepare your data
     categories = df['Month'][1:]
     heights = df['Visits'][1:]
@@ -54,12 +65,3 @@ else:
     )
 
     st.plotly_chart(fig)
-    
-    csv = convert_df(df)
-    
-    st.download_button(
-        label="Download data as CSV",
-        data=csv,
-        file_name='Data.csv',
-        mime='text/csv',
-    )
