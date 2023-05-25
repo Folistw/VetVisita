@@ -2,6 +2,11 @@ import plotly.graph_objects as go
 import pandas as pd
 import streamlit as st
 
+@st.cache
+def convert_df(df):
+    # IMPORTANT: Cache the conversion to prevent computation on every rerun
+    return df.to_csv().encode('utf-8')
+
 st.write(st.experimental_user)
 if "gomes" in str(st.experimental_user.email):
     st.write("Tu es Nabo")
@@ -49,7 +54,9 @@ else:
     )
 
     st.plotly_chart(fig)
-
+    
+    csv = convert_df(df)
+    
     st.download_button(
         label="Download data as CSV",
         data=csv,
