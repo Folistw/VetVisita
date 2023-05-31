@@ -65,3 +65,34 @@ else:
     )
 
     st.plotly_chart(fig)
+    
+    # Sample data for three years (replace with your own data)
+    years = [2019, 2020, 2021]
+    months = ['January', 'February', 'March', 'April', 'May', 'June']
+    data = [
+        [150, 200, 250, 300, 350, 400],  # Data for 2019
+        [200, 250, 300, 350, 400, 450],  # Data for 2020
+        [250, 300, 350, 400, 450, 500]   # Data for 2021
+    ]
+
+    # Create a list of traces for each year
+    traces = []
+    for i in range(len(years)):
+        trace = go.Scatter(
+            x=months,
+            y=data[i],
+            mode='lines+markers',
+            name=str(years[i])
+        )
+        traces.append(trace)
+
+    # Create the layout
+    layout = go.Layout(
+        title='Comparison of Data by Month',
+        xaxis=dict(title='Month'),
+        yaxis=dict(title='Data')
+    )
+
+    # Create the figure and plot it
+    fig = go.Figure(data=traces, layout=layout)
+    st.plotly_chart(fig)
