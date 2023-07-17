@@ -1,3 +1,8 @@
+import pandas as pd
+
+import streamlit as st
+from PIL import Image
+
 st.set_page_config(layout="wide", page_title="Arquivo.pt em números", page_icon=":chart:")
 
 st.markdown("<div style='text-align: center;'><img src='https://arquivo.pt/img/arquivo-logo-white.svg'></div>", unsafe_allow_html=True)
