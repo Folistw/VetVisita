@@ -2,6 +2,8 @@ import pandas as pd
 import plotly.graph_objects as go
 import streamlit as st
 from PIL import Image
+
+
 st.set_page_config(layout="wide", page_title="Arquivo.pt em números", page_icon=":chart:")
 
 st.markdown("<div style='text-align: center;'><img src='https://arquivo.pt/img/arquivo-logo-white.svg'></div>", unsafe_allow_html=True)
@@ -23,7 +25,7 @@ st.markdown("<h1 style='text-align: center;'>Arquivo.pt em números</h1>", unsaf
 #colnames=['Year', 'January - April Size', 'May - August Size', 'September - December Size', 'Total Year Size', 'January - April Nr Collections', 'May - August Nr Collections', 'September - December Nr Collections', 'Total Year Nr Collections'] 
 #df = pd.read_csv("1.csv", sep=',', names=colnames, header=None)
 
-colnames=['Year', 'Total Collections', 'Total Files', 'Total Seeds', 'Total Stored (TB)'] 
+colnames=['Year', 'Total Collections', 'Total Files', 'Total Seeds', 'Total Stored (TB)', 'Unique Users'] 
 df = pd.read_csv("2.csv", sep=';', names=colnames, header=None)
 
 #########################################################################################################
@@ -177,7 +179,6 @@ with col2:
     st.plotly_chart(fig2)
 
 
-
 ##############################################################################################################
 
 
@@ -228,34 +229,51 @@ with col1:
 with col2:
     st.plotly_chart(fig2)
 
+
 ##############################################################################################################
 
 
-# Add a sidebar for the 'Year' field
-#selected_year = st.sidebar.selectbox('Select Year', df['Year'])
+#Prepare your data
+categories = df['Year'][1:]
+heights = df['Unique Users'][1:].astype(int)
 
-# Filter the data based on the selected year
-#filtered_df = df[df['Year'] == selected_year]
 
-# Display the filtered data
-#st.write(filtered_df)
+#Create a bar chart object
+bar_chart = go.Bar(x=categories, y=heights)
+
+#Create a figure and add the bar chart object
+fig1 = go.Figure()
+fig1.add_trace(bar_chart)
+
+#Customize the chart (optional)
+fig1.update_layout(
+    title='Total number of unique sers per year',
+    xaxis_title='Year',
+    yaxis_title='unique users'
+    )
 
 # Sample data for demonstration
-cities = ['youtube.com', 'farm4.static.flickr.com', 'google.com', '2-bp.blogspot.com', '3-bp.blogspot.com']
-population = [2347260, 343767, 341582, 300851, 300636]
+cities = ['fortunecity.com', 'dre.pt', 'members.fortunecity.com', 'yt3.ggpht.com', 'geocities.com', 'youtube.com', 'publico.pt', 'tek.sapo.pt', 'noticiasdacovilha.pt', 'regiaodeagueda.com']
+population = [43230045, 43640068, 26301933, 21862962, 16983647, 14926793, 13163730, 12373934, 11376784, 10944150]
 
 # Sort the cities based on population in descending order
 sorted_data = sorted(zip(population, cities))
 population, cities = zip(*sorted_data)
 
 # Create a horizontal bar chart using Plotly
-fig = go.Figure(data=go.Bar(y=cities, x=population, orientation='h'))
+fig2 = go.Figure(data=go.Bar(y=cities, x=population, orientation='h'))
 
 # Customize the chart layout
-fig.update_layout(
+fig2.update_layout(
     title='Top 5 domains in Arquivo.pt',
     xaxis_title='Nr URLs',
     yaxis_title='Domains'
 )
 
-st.plotly_chart(fig)
+col1, col2 = st.columns(2)
+
+with col1:
+    st.plotly_chart(fig1)
+
+with col2:
+    st.plotly_chart(fig2)
